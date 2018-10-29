@@ -7,7 +7,7 @@ namespace CODBO4
 		[Description("psn")]
 		PS4,
 
-		[Description("xb1")]
+		[Description("xbl")]
 		XboxOne,
 
 		[Description("steam")]

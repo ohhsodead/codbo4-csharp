@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BO4.cs" />
+    <Compile Include="API.cs" />
     <Compile Include="CODException.cs" />
     <Compile Include="Models\Leaderboards.cs" />
     <Compile Include="Models\Validate.cs" />

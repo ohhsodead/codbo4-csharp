@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace CODBO4
 {
-	public static class BO4
+	public static class API
 	{
         /// <summary>
-        /// Determine whether user exists in http://bo4tracker.com/ database
+        /// Determine whether user's stats are being tracked via http://bo4tracker.com/ database
         /// </summary>
         /// <param name="username">Username of the user</param>
         /// <param name="platform">Platform the user is on</param>
@@ -27,14 +27,12 @@ namespace CODBO4
                 if (Utilities.ValidResponse(responseData))
                     return JsonConvert.DeserializeObject<Validate>(responseData).success;
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new CODException(data.data.message.ToString());
+                return false;
             }
         }
 
         /// <summary>
-        /// Get a user's Black Ops 4 profile and stats.
+        /// Get a user's Black Ops 4 profile stats.
         /// </summary>
         /// <param name="username">Username of the user</param>
         /// <param name="platform">Platform the user is on</param>

@@ -2,7 +2,7 @@
 
 namespace CODBO4.Models
 {
-	public class Leaderboards
+	public class Leaderboard
 	{
         public class Level
         {

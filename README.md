@@ -13,12 +13,6 @@ todo
 ## Usage
 You can use this API for free, forever and without any limits. 
 
-Supported Platforms:
-* PS4
-* Xbox One
-* Steam
-* Battle.net
-
 ### Validate User
 __Note:__ You don't need to validate user before making a request, although they must be stored on the http://bo4tracker.com/ database.
 
@@ -163,9 +157,16 @@ Console.WriteLine(profile.user.stats.level);
 ```csharp
 var matches = await Task.Run(() => API.GetRecentMatches(50));
 
-Console.WriteLine(matches.user.username);
-Console.WriteLine(matches.user.stats.prestige);
-Console.WriteLine(matches.user.stats.level);
+foreach (var match in matches.entries)
+{
+	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
+	
+	foreach (var player in match.playerEntries)
+	{
+		Console.WriteLine("Player Id: " + player.uid);
+		Console.WriteLine("Kills: " + player.kills);
+	}
+}
 //...
 ```
 
@@ -237,15 +238,22 @@ Console.WriteLine(matches.user.stats.level);
 
 ### Matches
 #### Parameters
-* matchId *(long)* - Number 
+* matchId *(long)* - Id of the match to fetch
 
 #### Code Example
 ```csharp
-var profileData = await Task.Run(() => API.GetMatches(10443371133280));
+var matches = await Task.Run(() => API.GetMatches(10443371133280));
 
-Console.WriteLine(profileData.user.username);
-Console.WriteLine(profileData.user.stats.prestige);
-Console.WriteLine(profileData.user.stats.level);
+foreach (var match in matches.entry)
+{
+	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
+	
+	foreach (var player in match.playerEntries)
+	{
+		Console.WriteLine("Player Id: " + player.uid);
+		Console.WriteLine("Kills: " + player.kills);
+	}
+}
 //...
 ```
 
@@ -322,8 +330,8 @@ var users = await Task.Run(() => API.GetUserById(327154, 396158));
 
 foreach (var user in users.entries)
 {
-	Console.WriteLine(user.username);
-	Console.WriteLine(user.kills);
+	Console.WriteLine(user.uid);
+	Console.WriteLine(user.uid);
 }
 //...
 ```
@@ -350,6 +358,8 @@ foreach (var user in users.entries)
 #### Parameters
 * platform - PS4, Xbox One, Steam, Battle.net
 * scope - Kills, Deaths, Ekia, Wins, Losses, Games Played, Time Played
+* rows *(integer)* - Number of rows to fetch
+
 **Currently only allows for requesting up to the first 100 rows of players per platform.**
 
 #### Code Example

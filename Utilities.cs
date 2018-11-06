@@ -1,17 +1,19 @@
 ﻿using System;
-using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.Reflection;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Linq;
 
 namespace CODBO4
 {
 	internal static class Utilities
-	{
-        internal const string BO4_VALIDATE_URL          = "https://bo4tracker.com/api/validate/bo4/";
-        internal const string BO4_STATS_URL             = "https://bo4tracker.com/api/stats/bo4/";        
-        internal const string BO4_LEADERBOARDS_URL      = "https://bo4tracker.com/api/leaderboard/bo4/";
-
+    {
+        internal const string VALIDATE_URL                      = "https://cod-api.theapinetwork.com/api/validate/bo4/";
+        internal const string STATS_URL                         = "https://cod-api.theapinetwork.com/api/stats/bo4/";
+        internal const string LEADERBOARDS_URL                  = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
+        internal const string RECENT_MATCHES_URL                = "https://cod-api.theapinetwork.com/api/matches/recent";
+        internal const string MATCHES_URL                       = "https://cod-api.theapinetwork.com/api/matches/get";
+        internal const string USERID_TO_USERNAME_URL            = "https://cod-api.theapinetwork.com/api/users/ids";
 
         internal static bool ValidResponse(string data)
 		{
@@ -42,7 +44,6 @@ namespace CODBO4
 
 			//Hack: Just pull in the new library at some point!
 #pragma warning disable 0618
-
 			var schema = JsonSchema.Parse(validator);
 			var obj = JObject.Parse(data);
 
@@ -50,7 +51,6 @@ namespace CODBO4
 
 			return !obj.IsValid(schema);
 #pragma warning restore 0618
-
 		}
 
 		internal static string GetDescription(this Enum value)
@@ -62,8 +62,7 @@ namespace CODBO4
 				FieldInfo field = type.GetField(name);
 				if (field != null)
 				{
-                    if (Attribute.GetCustomAttribute(field,
-                             typeof(DescriptionAttribute)) is DescriptionAttribute attr)
+                    if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attr)
                     {
                         return attr.Description;
                     }
@@ -71,6 +70,5 @@ namespace CODBO4
 			}
 			return null;
 		}
-
 	}
 }

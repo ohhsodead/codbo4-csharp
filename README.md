@@ -7,11 +7,14 @@ An (under development) C# library for accessing the Call of Duty: Black Ops 4 AP
 
 [![NuGet](https://buildstats.info/nuget/codbo4-csharp)](https://www.nuget.org/packages/codbo4-csharp/)
 
-## Getting Started
-todo
-
 ## Usage
 You can use this API for free, forever and without any limits. 
+
+### Install
+To install, run the following command in the Package Manager Console
+```
+Install-Package codbo4-csharp -Version 1.0.0
+```
 
 ### Validate User
 __Note:__ You don't need to validate user before making a request, although they must be stored on the http://bo4tracker.com/ database.
@@ -43,7 +46,7 @@ else {
 }
 ```
 
-### Profile Stats
+### Get Profile Stats
 __Tip:__ Providing the *userId* will allow for a much faster response. You can get this from validating the user first.
 
 #### Parameters
@@ -149,9 +152,9 @@ Console.WriteLine(profile.user.stats.level);
 }
 ```
 
-### Recent Matches
+### Get Recent Matches
 #### Parameters
-* rows *(long)* - Number between 0 and 100
+* rows *(integer)* - Number between 0 and 100
 
 #### Code Example
 ```csharp
@@ -235,14 +238,15 @@ foreach (var match in matches.entries)
         }
     ]
 }
+```
 
-### Matches
+### Get Match
 #### Parameters
 * matchId *(long)* - Id of the match to fetch
 
 #### Code Example
 ```csharp
-var matches = await Task.Run(() => API.GetMatches(10443371133280));
+var matches = await Task.Run(() => API.GetMatch(10443371133280017458));
 
 foreach (var match in matches.entry)
 {
@@ -328,7 +332,7 @@ foreach (var match in matches.entry)
 ```csharp
 var users = await Task.Run(() => API.GetUserById(327154, 396158));
 
-foreach (var user in users.entries)
+foreach (var user in users)
 {
 	Console.WriteLine(user.uid);
 	Console.WriteLine(user.uid);
@@ -403,7 +407,7 @@ foreach (var user in data.entries)
         {
             /* SAME AS ABOVE */
         }
-    }
+    ]
 }
 ```
 

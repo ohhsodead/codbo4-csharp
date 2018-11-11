@@ -56,8 +56,7 @@ var users = await Task.Run(() => API.GetUserById(327154, 396158));
 
 foreach (var user in users)
 {
-	Console.WriteLine(user.uid);
-	Console.WriteLine(user.uid);
+	Console.WriteLine("User Id: " + user.uid);
 }
 //...
 ```
@@ -75,9 +74,9 @@ __Tip:__ You can provide the *userId* for a much faster response, which can be f
 ```csharp
 var profile = await Task.Run(() => API.GetProfile("YOUTUBE__Kor3aYn", 323487, Platform.PS4, Mode.Multiplayer));
 
-Console.WriteLine(profile.user.username);
-Console.WriteLine(profile.user.stats.prestige);
-Console.WriteLine(profile.user.stats.level);
+Console.WriteLine("Username: " + profile.user.username);
+Console.WriteLine("Prestige: " + profile.user.stats.prestige);
+Console.WriteLine("Level: " + profile.user.stats.level);
 //...
 
 #### Data Example
@@ -204,9 +203,13 @@ Console.WriteLine(profile.user.stats.level);
 ```csharp
 var matches = await Task.Run(() => API.GetUserMatches("YOUTUBE__Kor3aYn", Platform.PS4, Mode.Multiplayer));
 
-Console.WriteLine(profile.user.username);
-Console.WriteLine(profile.user.stats.prestige);
-Console.WriteLine(profile.user.stats.level);
+foreach (var match in matches.entries)
+{
+	Console.WriteLine("Map Name: " + match.mapName);
+	
+	Console.WriteLine("Kills: " + match.stats.kills);
+	Console.WriteLine("Deaths: " + match.stats.deaths);
+}
 //...
 ```
 

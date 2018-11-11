@@ -34,7 +34,7 @@ namespace CODBO4
         }
 
         /// <summary>
-        /// Get user's profile stats
+        /// Get user's profile stats for the specified mode
         /// </summary>
         /// <param name="username">Username of the user</param>
         /// <param name="platform">Platform the user is on</param>
@@ -63,7 +63,7 @@ namespace CODBO4
 		}
 
         /// <summary>
-        /// Get user's profile stats
+        /// Get user's profile stats for the specified mode
         /// </summary>
         /// <param name="username">Username of the user</param>
         /// <param name="userid">Id the user</param>
@@ -93,7 +93,7 @@ namespace CODBO4
         }
 
         /// <summary>
-        /// Get user's recent matches
+        /// Get user's last 20 matches for the specified mode
         /// </summary>
         /// <param name="rows">Number of rows to fetch</param>
         /// <returns>Recent matches data</returns>
@@ -123,7 +123,7 @@ namespace CODBO4
         }
 
         /// <summary>
-        /// Get recent matches being played
+        /// Get up to the last 100 recent matches played
         /// </summary>
         /// <param name="rows">Number of rows to fetch</param>
         /// <returns>Recent matches data</returns>

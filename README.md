@@ -10,7 +10,7 @@ An (under development) C# library for accessing the Call of Duty: Black Ops 4 AP
 ## Install
 To install, run the following command in the Package Manager Console
 ```
-Install-Package codbo4-csharp -Version 1.1.0
+Install-Package codbo4-csharp -Version 1.0.1
 ```
 
 ## Usage

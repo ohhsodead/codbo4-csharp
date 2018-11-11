@@ -204,16 +204,9 @@ Console.WriteLine(profile.user.stats.level);
 ```csharp
 var matches = await Task.Run(() => API.GetUserMatches("YOUTUBE__Kor3aYn", Platform.PS4, Mode.Multiplayer));
 
-foreach (var match in matches.entries)
-{
-	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
-	
-	foreach (var player in match.playerEntries)
-	{
-		Console.WriteLine("Player Id: " + player.uid);
-		Console.WriteLine("Kills: " + player.kills);
-	}
-}
+Console.WriteLine(profile.user.username);
+Console.WriteLine(profile.user.stats.prestige);
+Console.WriteLine(profile.user.stats.level);
 //...
 ```
 
@@ -221,61 +214,49 @@ foreach (var match in matches.entries)
 ```json
 {
     "success": true,
-    "rows": 1,
-    "game": "bo4",
+    "uid": 123456,
+    "username": "username",
     "platform": "psn",
+    "game": "bo4",
+    "type": "mp",
+    "matchesCount": 20,
     "entries": [
         {
-            "mid": "10443371133280017458",
-            "utcStart": 1541003893,
-            "utcEnd": 1541004262,
-            "matchInfo": {
-                "matchDuration": 369,
-                "matchType": "mp",
-                "matchMapId": "mp_hacienda",
-                "matchMode": "tdm"
-            },
-            "teams": {
+            "identifier": "8870392559064980469",
+            "gameMode": "bounty",
+            "gameModeName": "Heist",
+            "map": "mp_icebreaker",
+            "mapName": "Ice breaker",
+            "mapImage": "https://callofdutytracker-public-files.theapinetwork.com/maps/mp_icebreaker.jpg",
+            "matchStart": 1541764351,
+            "matchEnd": 1541764971,
+            "matchWon": 1,
+            "CTS": 780, /*COD-TRACKER-SCORE*/
+            "teams": { /*ONLY-MULTIPLAYER*/
+                "winningTeam": 2,
+                "playerTeam": 2,
+                "playerPosition": 5,
                 "teamScore": {
-                    "team1": 65,
-                    "team2": 75
-                },
-                "winningTeam": 2
-            },
-            "playerEntries": [
-                {
-                    "uid": 327154,
-                    "prestige": 2,
-                    "rank": 46,
-                    "team": 1,
-                    "position": 2,
-                    "kills": 20,
-                    "deaths": 12,
-                    "ekia": 23,
-                    "highestKillStreak": 3,
-                    "assists": 3,
-                    "headshots": 0,
-                    "shotsFired": 428,
-                    "shotsLanded": 106,
-                    "shotsMissed": 322
-                },
-                {
-                    "uid": 396158,
-                    "prestige": 1,
-                    "rank": 50,
-                    "team": 2,
-                    "position": 5,
-                    "kills": 12,
-                    "deaths": 8,
-                    "ekia": 16,
-                    "highestKillStreak": 5,
-                    "assists": 4,
-                    "headshots": 0,
-                    "shotsFired": 271,
-                    "shotsLanded": 82,
-                    "shotsMissed": 189
+                    "team1": 1,
+                    "team2": 4
                 }
-            ]
+            },
+            "stats": {
+                "kills": 4,
+                "ekia": 3, /*ONLY-MULTIPLAYER*/
+                "assists": 0,
+                "deaths": 2,
+                "highestKillStreak": 3, /*ONLY-MULTIPLAYER*/
+                "headshots": 0,
+                "shotsFired": 96,
+                "shotsLanded": 21,
+                "shotsMissed": 75
+            },
+            "formatForSite": "2018-11-09 13:02:51",
+            "privateMatch": false
+        },
+        {
+        	/*SAME-AS-ABOVE*/
         }
     ]
 }

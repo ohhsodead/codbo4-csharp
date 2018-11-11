@@ -93,6 +93,36 @@ namespace CODBO4
         }
 
         /// <summary>
+        /// Get user's recent matches
+        /// </summary>
+        /// <param name="rows">Number of rows to fetch</param>
+        /// <returns>Recent matches data</returns>
+        public static object GetUserMatches(string username, Platform platform, Mode mode)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync($"{Utilities.USER_MATCHES_URL}/{username}/{platform.GetDescription()}?type={mode}").Result;
+
+                if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
+
+                var responseData = response.Content.ReadAsStringAsync().Result;
+
+                if (Utilities.ValidResponse(responseData))
+                    return JsonConvert.DeserializeObject<RecentMatches>(responseData);
+
+                if (Utilities.ValidResponse(responseData))
+                    if (mode == Mode.Multiplayer)
+                        return JsonConvert.DeserializeObject<MatchesMultiplayer>(responseData);
+                    else
+                        return JsonConvert.DeserializeObject<MatchesBlackout>(responseData);
+
+                dynamic data = JsonConvert.DeserializeObject(responseData);
+
+                throw new Exception(data.data.message.ToString());
+            }
+        }
+
+        /// <summary>
         /// Get recent matches being played
         /// </summary>
         /// <param name="rows">Number of rows to fetch</param>

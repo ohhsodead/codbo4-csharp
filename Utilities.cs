@@ -11,6 +11,7 @@ namespace CODBO4
         internal const string VALIDATE_URL                      = "https://cod-api.theapinetwork.com/api/validate/bo4/";
         internal const string STATS_URL                         = "https://cod-api.theapinetwork.com/api/stats/bo4/";
         internal const string LEADERBOARDS_URL                  = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
+        internal const string USER_MATCHES_URL                  = "https://cod-api.theapinetwork.com/api/matches/bo4/";
         internal const string RECENT_MATCHES_URL                = "https://cod-api.theapinetwork.com/api/matches/recent";
         internal const string MATCHES_URL                       = "https://cod-api.theapinetwork.com/api/matches/get";
         internal const string USERID_TO_USERNAME_URL            = "https://cod-api.theapinetwork.com/api/users/ids";

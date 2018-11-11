@@ -67,7 +67,7 @@ __Tip:__ You can provide the *userId* for a much faster response, which can be f
 
 #### Parameters
 * username *string* - User gamertag
-* userId *long* - Id of the user
+* userId *long* - Id of the user (optional)
 * platform - PS4, Xbox One, Steam, Battle.net
 * mode - Multiplayer or Blackout
 
@@ -85,18 +85,44 @@ Console.WriteLine(profile.user.stats.level);
 {
     "identifier": "abcdefg-hijklmn-opqrstu-xyz1234",
     "user": {
-        "id": "326423",
+        "id": 326423,
         "username": "tapxtherace",
         "platform": "psn",
-        "title": "bo4",
-        "avatar": "https://callofdutytracker-public-files.theapinetwork.com/api/user/playstation/tapxtherace/avatar.png"
-    },
-    "cache": {
-        "time": 1539539223,
-        "expire": 1539539393,
-        "interval": 170
+        "title": "bo4"
     },
     "stats": {
+        "blackoutExtra": { /*BLACKOUT*/
+            "top5placementteam": 1,
+            "top10placementteam": 2,
+            "top15placementteam": 2,
+            "top5placementsolo": 1,
+            "top25placementsolo": 3,
+            "vehicleescapes": 0,
+            "vehiclescavengerair": 0,
+            "vehiclescavengerland": 0,
+            "vehiclescavengerwater": 0,
+            "vehiclesdestroyed": 1,
+            "vehicleusedall": 0,
+            "vehiclelockexits": 0,
+            "vehiclessestroyedoccupied": 1,
+            "vehicledamageoccupied": 877,
+            "killsvehicledriver": 0,
+            "vehicledamage": 877,
+            "winswithoutkills": 0,
+            "mostkillsinagame": 0,
+            "distancetraveledwingsuit": 253554,
+            "distancetraveledwingsuitmiles": 4,
+            "distancetraveledvehicleland": 347339,
+            "distancetraveledvehiclelandmiles": 5,
+            "distancetraveledvehicleair": 0,
+            "distancetraveledvehicleairmiles": 0,
+            "distancetraveledvehiclewater": 30723,
+            "distancetraveledvehiclewatermiles": 0,
+            "itemspickedup": 461,
+            "itemsdropped": 0,
+            "killsrevenge": 0
+        },
+        "multiplayerExtra": [], /*MULTIPLAYER*/
         "level": 39,
         "maxlevel": 0,
         "prestige": 5,
@@ -163,6 +189,93 @@ Console.WriteLine(profile.user.stats.level);
             "shots": 49,
             "assists": 8,
             "damagedone": 2843
+        }
+    ]
+}
+```
+
+### Get User Matches
+#### Parameters
+* username *string* - User gamertag
+* platform - PS4, Xbox One, Steam, Battle.net
+* mode - Multiplayer or Blackout
+
+#### Code Example
+```csharp
+var matches = await Task.Run(() => API.GetUserMatches("YOUTUBE__Kor3aYn", Platform.PS4, Mode.Multiplayer));
+
+foreach (var match in matches.entries)
+{
+	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
+	
+	foreach (var player in match.playerEntries)
+	{
+		Console.WriteLine("Player Id: " + player.uid);
+		Console.WriteLine("Kills: " + player.kills);
+	}
+}
+//...
+```
+
+#### Data Example
+```json
+{
+    "success": true,
+    "rows": 1,
+    "game": "bo4",
+    "platform": "psn",
+    "entries": [
+        {
+            "mid": "10443371133280017458",
+            "utcStart": 1541003893,
+            "utcEnd": 1541004262,
+            "matchInfo": {
+                "matchDuration": 369,
+                "matchType": "mp",
+                "matchMapId": "mp_hacienda",
+                "matchMode": "tdm"
+            },
+            "teams": {
+                "teamScore": {
+                    "team1": 65,
+                    "team2": 75
+                },
+                "winningTeam": 2
+            },
+            "playerEntries": [
+                {
+                    "uid": 327154,
+                    "prestige": 2,
+                    "rank": 46,
+                    "team": 1,
+                    "position": 2,
+                    "kills": 20,
+                    "deaths": 12,
+                    "ekia": 23,
+                    "highestKillStreak": 3,
+                    "assists": 3,
+                    "headshots": 0,
+                    "shotsFired": 428,
+                    "shotsLanded": 106,
+                    "shotsMissed": 322
+                },
+                {
+                    "uid": 396158,
+                    "prestige": 1,
+                    "rank": 50,
+                    "team": 2,
+                    "position": 5,
+                    "kills": 12,
+                    "deaths": 8,
+                    "ekia": 16,
+                    "highestKillStreak": 5,
+                    "assists": 4,
+                    "headshots": 0,
+                    "shotsFired": 271,
+                    "shotsLanded": 82,
+                    "shotsMissed": 189
+                }
+            ]
         }
     ]
 }

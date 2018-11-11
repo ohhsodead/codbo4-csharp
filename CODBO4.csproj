@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="Models\MatchesMultiplayer.cs" />
     <Compile Include="Models\ProfileMultiplayer.cs" />
     <Compile Include="Models\Leaderboard.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MatchesBlackout.cs" />
     <Compile Include="Models\RecentMatches.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Validate.cs" />

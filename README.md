@@ -10,7 +10,7 @@ An (under development) C# library for accessing the Call of Duty: Black Ops 4 AP
 ## Install
 To install, run the following command in the Package Manager Console
 ```
-Install-Package codbo4-csharp -Version 1.0.0
+Install-Package codbo4-csharp -Version 1.1.0
 ```
 
 ## Usage
@@ -27,12 +27,15 @@ __Note:__ You don't need to validate user before making a request, although they
 ```csharp
 using CODBO4;
 
-var user = await Task.Run(() => API.ValidateUser("YOUTUBE__Kor3aYn", Platform.PS4));
+var user = await Task.Run(() => API.ValidateUser("RandomUsername", Platform.PS4));
 
-if (user.success) {
+if (user.success)
+{
+	Console.WriteLine("User Id: " + user.uid);
 	//...
 }
-else {
+else
+{
 	//stats not found
 }
 ```
@@ -56,7 +59,7 @@ var users = await Task.Run(() => API.GetUserById(327154, 396158));
 
 foreach (var user in users)
 {
-	Console.WriteLine("User Id: " + user.uid);
+	Console.WriteLine("Username: " + user.username);
 }
 //...
 ```
@@ -72,7 +75,7 @@ __Tip:__ You can provide the *userId* for a much faster response, which can be f
 
 #### Code Example
 ```csharp
-var profile = await Task.Run(() => API.GetProfile("YOUTUBE__Kor3aYn", 323487, Platform.PS4, Mode.Multiplayer));
+var profile = await Task.Run(() => API.GetProfile("tapxtherace", 326423, Platform.PS4, Mode.Multiplayer));
 
 Console.WriteLine("Username: " + profile.user.username);
 Console.WriteLine("Prestige: " + profile.user.stats.prestige);
@@ -202,7 +205,7 @@ Console.WriteLine("Level: " + profile.user.stats.level);
 
 #### Code Example
 ```csharp
-var matches = await Task.Run(() => API.GetUserMatches("YOUTUBE__Kor3aYn", Platform.PS4, Mode.Multiplayer));
+var matches = await Task.Run(() => API.GetUserMatches("username", Platform.PS4, Mode.Multiplayer));
 
 foreach (var match in matches.entries)
 {
@@ -502,11 +505,11 @@ foreach (var user in data.entries)
             "timeplayed": 278477
         },
         {
-            /* SAME AS ABOVE */
+            /*SAME-AS-ABOVE*/
         }
     ]
 }
 ```
 
 # License
-This project is licensed under the General Public License v3
+This project is licensed under the General Public License v3.

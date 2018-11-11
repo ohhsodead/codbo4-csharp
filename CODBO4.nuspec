@@ -2,7 +2,7 @@
 <package  xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>    
     <id>codbo4-csharp</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>CODBO4</title>
     <authors>HerbL27</authors>
     <owners>HerbL27</owners>
@@ -10,14 +10,17 @@
     <projectUrl>https://github.com/HerbL27/codbo4-csharp</projectUrl>
     <iconUrl>https://github.com/HerbL27/codbo4-csharp/blob/master/CODBO4/codbo4_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>An (under development) C# library for accessing the Call of Duty: Black Ops 4 API.</description>
-    <releaseNotes>Initial release</releaseNotes>
+    <description>An (under development) C# library for accessing the Call of Duty: Black Ops 4 API</description>
+    <releaseNotes>Fixed returning different multiplayer and blackout models
+Added support for getting user matches
+Updated API and usage example
+Updated usage</releaseNotes>
     <copyright></copyright>
     <tags>cod bo4 tracker api wrapper</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="10.0" />
     </dependencies>
-    <summary>An (under development) C# library for accessing the Call of Duty: Black Ops 4 API.</summary>
+    <summary>An (under development) C# library for accessing the Call of Duty: Black Ops 4 API</summary>
   </metadata>
   <files>
     <file src="README.md" target="" />

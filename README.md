@@ -78,6 +78,7 @@ Console.WriteLine("Username: " + profile.user.username);
 Console.WriteLine("Prestige: " + profile.user.stats.prestige);
 Console.WriteLine("Level: " + profile.user.stats.level);
 //...
+```
 
 #### Data Example
 ```json

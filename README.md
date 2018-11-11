@@ -7,20 +7,20 @@ An (under development) C# library for accessing the Call of Duty: Black Ops 4 AP
 
 [![NuGet](https://buildstats.info/nuget/codbo4-csharp)](https://www.nuget.org/packages/codbo4-csharp/)
 
-## Usage
-You can use this API for free, forever and without any limits. 
-
-### Install
+## Install
 To install, run the following command in the Package Manager Console
 ```
 Install-Package codbo4-csharp -Version 1.0.0
 ```
 
+## Usage
+You can use this API for free, forever and without any limits.
+
 ### Validate User
 __Note:__ You don't need to validate user before making a request, although they must be stored on the http://bo4tracker.com/ database.
 
 #### Parameters
-* username *(string)* - Gamertag of the user
+* username *string* - Gamertag of the user
 * platform - PS4, Xbox One, Steam, Battle.net
 
 #### Code Example
@@ -46,12 +46,28 @@ else {
 }
 ```
 
+### Username by User Id
+#### Parameters
+* userid *long array* - Containing user ids
+
+#### Code Example
+```csharp
+var users = await Task.Run(() => API.GetUserById(327154, 396158));
+
+foreach (var user in users)
+{
+	Console.WriteLine(user.uid);
+	Console.WriteLine(user.uid);
+}
+//...
+```
+
 ### Get Profile Stats
-__Tip:__ Providing the *userId* will allow for a much faster response. You can get this from validating the user first.
+__Tip:__ You can provide the *userId* for a much faster response, which can be found when validing the user.
 
 #### Parameters
-* username *(string)* - User gamertag
-* userId *(long)* - Id of the user
+* username *string* - User gamertag
+* userId *long* - Id of the user
 * platform - PS4, Xbox One, Steam, Battle.net
 * mode - Multiplayer or Blackout
 
@@ -154,7 +170,9 @@ Console.WriteLine(profile.user.stats.level);
 
 ### Get Recent Matches
 #### Parameters
-* rows *(integer)* - Number between 0 and 100
+* rows *integer* - Number of rows to fetch
+
+**Currently only allows for requesting up to the first 100 rows of players.**
 
 #### Code Example
 ```csharp
@@ -232,9 +250,6 @@ foreach (var match in matches.entries)
                     "shotsMissed": 189
                 }
             ]
-        },
-        {
-            /* SAME AS ABOVE */
         }
     ]
 }
@@ -242,7 +257,7 @@ foreach (var match in matches.entries)
 
 ### Get Match
 #### Parameters
-* matchId *(long)* - Id of the match to fetch
+* matchId *long* - Id of the match to fetch
 
 #### Code Example
 ```csharp
@@ -324,22 +339,6 @@ foreach (var match in matches.entry)
 }
 ```
 
-### Username by User Id
-#### Parameters
-* userid *(long[])* - Containing user ids
-
-#### Code Example
-```csharp
-var users = await Task.Run(() => API.GetUserById(327154, 396158));
-
-foreach (var user in users)
-{
-	Console.WriteLine(user.uid);
-	Console.WriteLine(user.uid);
-}
-//...
-```
-
 #### Data Example
 ```json
 [
@@ -358,13 +357,13 @@ foreach (var user in users)
 ]
 ```
 
-### Leaderboard
+### Get Leaderboard Data
 #### Parameters
 * platform - PS4, Xbox One, Steam, Battle.net
 * scope - Kills, Deaths, Ekia, Wins, Losses, Games Played, Time Played
-* rows *(integer)* - Number of rows to fetch
+* rows *integer* - Number of rows to fetch
 
-**Currently only allows for requesting up to the first 100 rows of players per platform.**
+**Currently only allows for requesting up to the first 100 rows of players.**
 
 #### Code Example
 ```csharp

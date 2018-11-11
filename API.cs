@@ -40,7 +40,7 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static Profile GetProfile(string username, Platform platform, Mode mode)
+        public static object GetProfile(string username, Platform platform, Mode mode)
 		{
 			using (var client = new HttpClient())
 			{
@@ -51,9 +51,12 @@ namespace CODBO4
 				var responseData = response.Content.ReadAsStringAsync().Result;
 
 				if (Utilities.ValidResponse(responseData))
-					return JsonConvert.DeserializeObject<Profile>(responseData);
+					if (mode == Mode.Multiplayer )
+                        return JsonConvert.DeserializeObject<ProfileMultiplayer>(responseData);
+                    else
+                        return JsonConvert.DeserializeObject<ProfileBlackout>(responseData);
 
-				dynamic data = JsonConvert.DeserializeObject(responseData);
+                dynamic data = JsonConvert.DeserializeObject(responseData);
 
 				throw new Exception(data.data.message.ToString());
 			}
@@ -67,7 +70,7 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static Profile GetProfile(string username, long userid, Platform platform, Mode mode)
+        public static object GetProfile(string username, long userid, Platform platform, Mode mode)
         {
             using (var client = new HttpClient())
             {
@@ -78,7 +81,10 @@ namespace CODBO4
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 if (Utilities.ValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Profile>(responseData);
+                    if (mode == Mode.Multiplayer)
+                        return JsonConvert.DeserializeObject<ProfileMultiplayer>(responseData);
+                    else
+                        return JsonConvert.DeserializeObject<ProfileBlackout>(responseData);
 
                 dynamic data = JsonConvert.DeserializeObject(responseData);
 

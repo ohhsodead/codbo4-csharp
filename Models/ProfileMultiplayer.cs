@@ -2,7 +2,7 @@
 
 namespace CODBO4.Models
 {
-	public class Profile
+	public class ProfileMultiplayer
 	{
         public class User
         {

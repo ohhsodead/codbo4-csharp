@@ -45,12 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="Models\ProfileMultiplayer.cs" />
     <Compile Include="Models\Leaderboard.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\RecentMatches.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Validate.cs" />
-    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\ProfileBlackout.cs" />
     <Compile Include="Modes.cs" />
     <Compile Include="Scopes.cs" />
     <Compile Include="Platforms.cs" />

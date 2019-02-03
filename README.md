@@ -1,16 +1,23 @@
-# codbo4-csharp
-An (under development) C# library for accessing the Call of Duty: Black Ops 4 API.
-* Get profile information - prestige, level, xp, and more...
-* Get matches and stats - map, time, win/loss, ekia, kills, deaths, ekia ratio, and more...
-* Get leaderboard information - kills, deaths, time played, and more...
-* Not licensed by or affiliated with Activision or Call of Duty
+# An (under development) C# library for accessing the Call of Duty: Black Ops 4 API.
+*Not licensed by or associated with Activision or Call of Duty*
+
+## Features
+* Full Black Ops 4 Support - blackout, mp, zombies
+* Get profile information - prestige, rank, xp, and more...
+* Get recent matches and stats - map, mode, win/loss, kills, deaths, SPM, K/D Ratio, and more...
+* Get leaderboard information - weekly, monthly, alltime, for all game modes
 
 [![NuGet](https://buildstats.info/nuget/codbo4-csharp)](https://www.nuget.org/packages/codbo4-csharp/)
 
 ## Install
-To install, run the following command in the Package Manager Console
+You can install via the npm package manager
+
 ```
-Install-Package codbo4-csharp -Version 1.0.1
+Install-Package codbo4-csharp
+```
+Or clone the repository and install dependencies
+```
+git clone https://github.com/mostlyash/codbo4-csharp.git
 ```
 
 ## Usage

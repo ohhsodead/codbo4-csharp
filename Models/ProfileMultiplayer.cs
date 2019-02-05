@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class ProfileMultiplayer
-	{
+    public class ProfileMultiplayer
+    {
         public class User
         {
             public int id { get; set; }

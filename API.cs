@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -6,8 +6,8 @@ using CODBO4.Models;
 
 namespace CODBO4
 {
-	public static class API
-	{
+    public static class API
+    {
         /// <summary>
         /// Get user data from http://bo4tracker.com, will return successful if stats are available
         /// </summary>
@@ -41,26 +41,26 @@ namespace CODBO4
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
         public static object GetProfile(string username, Platform platform, Mode mode)
-		{
-			using (var client = new HttpClient())
-			{
+        {
+            using (var client = new HttpClient())
+            {
                 var response = client.GetAsync(Uri.EscapeUriString($"{Utilities.STATS_URL}/{username}/{platform.GetDescription()}?type={mode}")).Result;
 
-				if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
+                if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
 
-				var responseData = response.Content.ReadAsStringAsync().Result;
+                var responseData = response.Content.ReadAsStringAsync().Result;
 
-				if (Utilities.ValidResponse(responseData))
-					if (mode == Mode.Multiplayer )
+                if (Utilities.ValidResponse(responseData))
+                    if (mode == Mode.Multiplayer )
                         return JsonConvert.DeserializeObject<ProfileMultiplayer>(responseData);
                     else
                         return JsonConvert.DeserializeObject<ProfileBlackout>(responseData);
 
                 dynamic data = JsonConvert.DeserializeObject(responseData);
 
-				throw new Exception(data.data.message.ToString());
-			}
-		}
+                throw new Exception(data.data.message.ToString());
+            }
+        }
 
         /// <summary>
         /// Get user's profile stats for the specified mode
@@ -178,22 +178,22 @@ namespace CODBO4
         /// <param name="rows">Number of rows to fetch (100 Max)</param>
         /// <returns>Leaderboard data</returns>
         public static Leaderboard GetLeaderboard(Platform platform, Scope scope, int rows)
-		{
-			using (var client = new HttpClient())
-			{
-				var response = client.GetAsync($"{Utilities.LEADERBOARDS_URL}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}").Result;
+        {
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync($"{Utilities.LEADERBOARDS_URL}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}").Result;
 
-				if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
+                if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
 
-				var responseData = response.Content.ReadAsStringAsync().Result;
+                var responseData = response.Content.ReadAsStringAsync().Result;
 
-				if (Utilities.ValidResponse(responseData))
-					return JsonConvert.DeserializeObject<Leaderboard>(responseData);
+                if (Utilities.ValidResponse(responseData))
+                    return JsonConvert.DeserializeObject<Leaderboard>(responseData);
 
-				dynamic data = JsonConvert.DeserializeObject(responseData);
+                dynamic data = JsonConvert.DeserializeObject(responseData);
 
-				throw new Exception(data.data.message.ToString());
-			}
+                throw new Exception(data.data.message.ToString());
+            }
         }
 
         /// <summary>

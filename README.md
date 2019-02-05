@@ -38,12 +38,12 @@ var user = await Task.Run(() => API.ValidateUser("RandomUsername", Platform.PS4)
 
 if (user.success)
 {
-	Console.WriteLine("User Id: " + user.uid);
-	//...
+    Console.WriteLine("User Id: " + user.uid);
+    //...
 }
 else
 {
-	//stats not found
+    //stats not found
 }
 ```
 
@@ -66,7 +66,7 @@ var users = await Task.Run(() => API.GetUserById(327154, 396158));
 
 foreach (var user in users)
 {
-	Console.WriteLine("Username: " + user.username);
+    Console.WriteLine("Username: " + user.username);
 }
 //...
 ```
@@ -216,10 +216,10 @@ var matches = await Task.Run(() => API.GetUserMatches("username", Platform.PS4, 
 
 foreach (var match in matches.entries)
 {
-	Console.WriteLine("Map Name: " + match.mapName);
-	
-	Console.WriteLine("Kills: " + match.stats.kills);
-	Console.WriteLine("Deaths: " + match.stats.deaths);
+    Console.WriteLine("Map Name: " + match.mapName);
+
+    Console.WriteLine("Kills: " + match.stats.kills);
+    Console.WriteLine("Deaths: " + match.stats.deaths);
 }
 //...
 ```
@@ -270,7 +270,7 @@ foreach (var match in matches.entries)
             "privateMatch": false
         },
         {
-        	/*SAME-AS-ABOVE*/
+            /*SAME-AS-ABOVE*/
         }
     ]
 }
@@ -288,13 +288,13 @@ var matches = await Task.Run(() => API.GetRecentMatches(50));
 
 foreach (var match in matches.entries)
 {
-	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
-	
-	foreach (var player in match.playerEntries)
-	{
-		Console.WriteLine("Player Id: " + player.uid);
-		Console.WriteLine("Kills: " + player.kills);
-	}
+    Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
+
+    foreach (var player in match.playerEntries)
+    {
+        Console.WriteLine("Player Id: " + player.uid);
+        Console.WriteLine("Kills: " + player.kills);
+    }
 }
 //...
 ```
@@ -373,13 +373,13 @@ var matches = await Task.Run(() => API.GetMatch(10443371133280017458));
 
 foreach (var match in matches.entry)
 {
-	Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
-	
-	foreach (var player in match.playerEntries)
-	{
-		Console.WriteLine("Player Id: " + player.uid);
-		Console.WriteLine("Kills: " + player.kills);
-	}
+    Console.WriteLine("Map Id: " + match.matchInfo.matchMapId);
+
+    foreach (var player in match.playerEntries)
+    {
+        Console.WriteLine("Player Id: " + player.uid);
+        Console.WriteLine("Kills: " + player.kills);
+    }
 }
 //...
 ```
@@ -479,8 +479,8 @@ var data = await Task.Run(() => API.GetLeaderboard(Platform.PS4, Scope.Kills, 50
 
 foreach (var user in data.entries)
 {
-	Console.WriteLine(user.username);
-	Console.WriteLine(user.kills);
+    Console.WriteLine(user.username);
+    Console.WriteLine(user.kills);
 }
 //...
 ```

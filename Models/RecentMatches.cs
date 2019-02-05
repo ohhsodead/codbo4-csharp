@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class RecentMatches
-	{
+    public class RecentMatches
+    {
         public class MatchInfo
         {
             public int matchDuration { get; set; }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class Leaderboard
-	{
+    public class Leaderboard
+    {
         public class Level
         {
             public int id { get; set; }

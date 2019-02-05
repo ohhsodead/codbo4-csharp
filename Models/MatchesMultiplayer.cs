@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class MatchesMultiplayer
-	{
+    public class MatchesMultiplayer
+    {
         public class TeamScore
         {
             public int team1 { get; set; }

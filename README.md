@@ -10,13 +10,13 @@
 [![NuGet](https://buildstats.info/nuget/codbo4-csharp)](https://www.nuget.org/packages/codbo4-csharp/)
 
 ## Install
-You can install via the npm package manager
+You can install via the NuGet package manager
 
-```
+```powershell
 Install-Package codbo4-csharp
 ```
 Or clone the repository and install dependencies
-```
+```sh
 git clone https://github.com/mostlyash/codbo4-csharp.git
 ```
 

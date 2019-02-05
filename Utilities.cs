@@ -1,24 +1,24 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace CODBO4
 {
     internal static class Utilities
     {
-        internal const string VALIDATE_URL                      = "https://cod-api.theapinetwork.com/api/validate/bo4/";
-        internal const string STATS_URL                         = "https://cod-api.theapinetwork.com/api/stats/bo4/";
-        internal const string LEADERBOARDS_URL                  = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
-        internal const string USER_MATCHES_URL                  = "https://cod-api.theapinetwork.com/api/matches/bo4/";
-        internal const string RECENT_MATCHES_URL                = "https://cod-api.theapinetwork.com/api/matches/recent";
-        internal const string MATCHES_URL                       = "https://cod-api.theapinetwork.com/api/matches/get";
-        internal const string USERID_TO_USERNAME_URL            = "https://cod-api.theapinetwork.com/api/users/ids";
+        internal const string VALIDATE_URL = "https://cod-api.theapinetwork.com/api/validate/bo4/";
+        internal const string STATS_URL = "https://cod-api.theapinetwork.com/api/stats/bo4/";
+        internal const string LEADERBOARDS_URL = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
+        internal const string USER_MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/bo4/";
+        internal const string RECENT_MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/recent";
+        internal const string MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/get";
+        internal const string USERID_TO_USERNAME_URL = "https://cod-api.theapinetwork.com/api/users/ids";
 
         internal static bool ValidResponse(string data)
         {
-            string validator = @"{
+            var validator = @"{
               'type': 'object',
               'required': true,
               'properties': {
@@ -57,7 +57,7 @@ namespace CODBO4
         internal static string GetDescription(this Enum value)
         {
             Type type = value.GetType();
-            string name = Enum.GetName(type, value);
+            var name = Enum.GetName(type, value);
             if (name != null)
             {
                 FieldInfo field = type.GetField(name);

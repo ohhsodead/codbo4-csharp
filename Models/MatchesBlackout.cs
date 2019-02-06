@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class MatchesBlackout
-	{
+    public class MatchesBlackout
+    {
         public class Stats
         {
             public int kills { get; set; }

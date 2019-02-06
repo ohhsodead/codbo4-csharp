@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace CODBO4.Models
 {
-	public class ProfileBlackout
-	{
+    public class ProfileBlackout
+    {
         public class User
         {
             public int id { get; set; }

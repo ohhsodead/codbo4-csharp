@@ -1,17 +1,17 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace CODBO4
 {
-	public enum Platform
-	{
-		[Description("psn")]
-		PS4,
+    public enum Platform
+    {
+        [Description("psn")]
+        PS4,
 
-		[Description("xbl")]
-		XboxOne,
+        [Description("xbl")]
+        XboxOne,
 
-		[Description("steam")]
-		PC,
+        [Description("steam")]
+        PC,
 
         [Description("bnet")]
         BattleNet

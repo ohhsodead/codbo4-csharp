@@ -8,17 +8,17 @@ namespace CODBO4
 {
     internal static class Utilities
     {
-        internal const string VALIDATE_URL = "https://cod-api.theapinetwork.com/api/validate/bo4/";
-        internal const string STATS_URL = "https://cod-api.theapinetwork.com/api/stats/bo4/";
-        internal const string LEADERBOARDS_URL = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
-        internal const string USER_MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/bo4/";
-        internal const string RECENT_MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/recent";
-        internal const string MATCHES_URL = "https://cod-api.theapinetwork.com/api/matches/get";
-        internal const string USERID_TO_USERNAME_URL = "https://cod-api.theapinetwork.com/api/users/ids";
+        internal const string ValidateUrl = "https://cod-api.theapinetwork.com/api/validate/bo4/";
+        internal const string StatsUrl = "https://cod-api.theapinetwork.com/api/stats/bo4/";
+        internal const string LeaderBoardsUrl = "https://cod-api.theapinetwork.com/api/leaderboard/bo4/";
+        internal const string UserMatchesUrl = "https://cod-api.theapinetwork.com/api/matches/bo4/";
+        internal const string RecentMatchesUrl = "https://cod-api.theapinetwork.com/api/matches/recent";
+        internal const string MatchesUrl = "https://cod-api.theapinetwork.com/api/matches/get";
+        internal const string UseridToUsernameUrl = "https://cod-api.theapinetwork.com/api/users/ids";
 
-        internal static bool ValidResponse(string data)
+        internal static bool IsValidResponse(string data)
         {
-            var validator = @"{
+            const string validator = @"{
               'type': 'object',
               'required': true,
               'properties': {
@@ -58,18 +58,13 @@ namespace CODBO4
         {
             Type type = value.GetType();
             var name = Enum.GetName(type, value);
-            if (name != null)
-            {
-                FieldInfo field = type.GetField(name);
-                if (field != null)
-                {
-                    if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attr)
-                    {
-                        return attr.Description;
-                    }
-                }
-            }
-            return null;
+            if (name == null) return null;
+            FieldInfo field = type.GetField(name);
+            return field == null
+                ? null
+                : !(Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attr)
+                    ? null
+                    : attr.Description;
         }
     }
 }

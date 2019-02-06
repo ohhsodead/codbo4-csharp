@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace CODBO4.Models
 {
-    public class RecentMatches
+    public class Matches
     {
         public class MatchInfo
         {
@@ -49,13 +47,12 @@ namespace CODBO4.Models
             public int utcEnd { get; set; }
             public MatchInfo matchInfo { get; set; }
             public Teams teams { get; set; }
-            public IList<PlayerEntry> playerEntries { get; set; }
+            public PlayerEntry[] playerEntries { get; set; }
         }
 
         public bool success { get; set; }
-        public int rows { get; set; }
         public string game { get; set; }
         public string platform { get; set; }
-        public IList<Entry> entries { get; set; }
+        public Entry[] entry { get; set; }
     }
 }

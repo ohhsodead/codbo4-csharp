@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace CODBO4
+namespace CODBO4.Enums
 {
     public enum Mode
     {

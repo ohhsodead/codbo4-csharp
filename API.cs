@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using CODBO4.Enums;
 using CODBO4.Models;
+using CODBO4.Models.Match;
+using CODBO4.Models.Profile;
 using Newtonsoft.Json;
+using Blackout = CODBO4.Models.Profile.Blackout;
+using Multiplayer = CODBO4.Models.Profile.Multiplayer;
 
 namespace CODBO4
 {
-    public static class API
+    public static class Api
     {
         /// <summary>
         /// Get user data from http://bo4tracker.com, will return successful if stats are available
@@ -18,19 +25,17 @@ namespace CODBO4
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.VALIDATE_URL}/{username}/{platform.GetDescription()}")).Result;
+                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}")).Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                     return JsonConvert.DeserializeObject<Validate>(responseData);
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
@@ -45,24 +50,21 @@ namespace CODBO4
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.STATS_URL}/{username}/{platform.GetDescription()}?type={mode}")).Result;
+                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}")).Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                 {
-                    if (mode == Mode.Multiplayer)
-                        return JsonConvert.DeserializeObject<ProfileMultiplayer>(responseData);
-                    else
-                        return JsonConvert.DeserializeObject<ProfileBlackout>(responseData);
+                    return mode == Mode.Multiplayer
+                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
+                        : JsonConvert.DeserializeObject<Blackout>(responseData);
                 }
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
@@ -78,57 +80,53 @@ namespace CODBO4
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.STATS_URL}/{username}/{platform.GetDescription()}?type={mode}?u={userid}")).Result;
+                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}?u={userid}")).Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                 {
-                    if (mode == Mode.Multiplayer)
-                        return JsonConvert.DeserializeObject<ProfileMultiplayer>(responseData);
-                    else
-                        return JsonConvert.DeserializeObject<ProfileBlackout>(responseData);
+                    return mode == Mode.Multiplayer
+                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
+                        : JsonConvert.DeserializeObject<Blackout>(responseData);
                 }
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
         /// <summary>
         /// Get user's last 20 matches for the specified mode
         /// </summary>
-        /// <param name="rows">Number of rows to fetch</param>
+        /// <param name="username"></param>
+        /// <param name="platform"></param>
+        /// <param name="mode"></param>
         /// <returns>Recent matches data</returns>
         public static object GetUserMatches(string username, Platform platform, Mode mode)
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.USER_MATCHES_URL}/{username}/{platform.GetDescription()}?type={mode}").Result;
+                HttpResponseMessage response = client.GetAsync($"{Utilities.UserMatchesUrl}/{username}/{platform.GetDescription()}?type={mode}").Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                     return JsonConvert.DeserializeObject<RecentMatches>(responseData);
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                 {
-                    if (mode == Mode.Multiplayer)
-                        return JsonConvert.DeserializeObject<MatchesMultiplayer>(responseData);
-                    else
-                        return JsonConvert.DeserializeObject<MatchesBlackout>(responseData);
+                    return mode == Mode.Multiplayer
+                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
+                        : JsonConvert.DeserializeObject<Blackout>(responseData);
                 }
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
@@ -141,19 +139,17 @@ namespace CODBO4
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.RECENT_MATCHES_URL}?rows={rows}").Result;
+                HttpResponseMessage response = client.GetAsync($"{Utilities.RecentMatchesUrl}?rows={rows}").Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                     return JsonConvert.DeserializeObject<RecentMatches>(responseData);
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
@@ -162,50 +158,46 @@ namespace CODBO4
         /// </summary>
         /// <param name="matchId">Id of the match to fetch</param>
         /// <returns>Match data</returns>
-        public static Match GetMatch(string matchId)
+        public static Matches GetMatch(string matchId)
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.MATCHES_URL}?id={matchId}").Result;
+                HttpResponseMessage response = client.GetAsync($"{Utilities.MatchesUrl}?id={matchId}").Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Match>(responseData);
+                if (Utilities.IsValidResponse(responseData))
+                    return JsonConvert.DeserializeObject<Matches>(responseData);
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
         /// <summary>
-        /// Get leaderboard data based on scope
+        /// Get leader board data based on scope
         /// </summary>
-        /// <param name="platform">Platform to get leaderboards for</param>
+        /// <param name="platform">Platform to get leader boards for</param>
         /// <param name="scope">Type of scope to search for</param>
         /// <param name="rows">Number of rows to fetch (100 Max)</param>
-        /// <returns>Leaderboard data</returns>
-        public static Leaderboard GetLeaderboard(Platform platform, Scope scope, int rows)
+        /// <returns>LeaderBoard data</returns>
+        public static Leaderboards GetLeaderBoard(Platform platform, Scope scope, int rows)
         {
             using (var client = new HttpClient())
             {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.LEADERBOARDS_URL}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}").Result;
+                HttpResponseMessage response = client.GetAsync($"{Utilities.LeaderBoardsUrl}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}").Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Leaderboard>(responseData);
+                if (Utilities.IsValidResponse(responseData))
+                    return JsonConvert.DeserializeObject<Leaderboards>(responseData);
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
 
@@ -214,28 +206,23 @@ namespace CODBO4
         /// </summary>
         /// <param name="userid">User id's to fetch (500 Max)</param>
         /// <returns>Username data</returns>
-        public static User GetUserById(long[] userid)
+        public static User GetUserById(IEnumerable<long> userid)
         {
             using (var client = new HttpClient())
             {
-                var userids = "";
+                var userIds = userid.Aggregate("", (current, id) => current + $"?id={id}&");
 
-                foreach (var id in userid)
-                    userids += $"?id={id}&";
-
-                HttpResponseMessage response = client.GetAsync($"{Utilities.USERID_TO_USERNAME_URL}?{userids}").Result;
+                HttpResponseMessage response = client.GetAsync($"{Utilities.UseridToUsernameUrl}?{userIds}").Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
-                if (Utilities.ValidResponse(responseData))
+                if (Utilities.IsValidResponse(responseData))
                     return JsonConvert.DeserializeObject<User>(responseData);
 
-                dynamic data = JsonConvert.DeserializeObject(responseData);
-
-                throw new Exception(data.data.message.ToString());
+                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }
         }
     }

@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>codbo4-csharp</PackageId>
     <Version>1.0.1</Version>
-    <Authors>HerbL27</Authors>
+    <Authors>mostlyash</Authors>
     <Description>An (under development) C# library for accessing the Call of Duty: Black Ops 4 API</Description>
     <PackageLicenseUrl>https://github.com/mostlyash/codbo4-csharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/mostlyash/codbo4-csharp/master/codbo4_icon.png</PackageIconUrl>
@@ -14,6 +14,8 @@
 Added support for getting user matches
 Updated API and usage examples</PackageReleaseNotes>
     <PackageTags>cod bo4 tracker api wrapper</PackageTags>
+    <Company>mostlyash</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

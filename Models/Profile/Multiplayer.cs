@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
-namespace CODBO4.Models
+namespace CODBO4.Models.Profile
 {
-    public class ProfileMultiplayer
+    public class Multiplayer
     {
         public class User
         {
@@ -98,10 +96,10 @@ namespace CODBO4.Models
         public User user { get; set; }
         public Cache cache { get; set; }
         public Stats stats { get; set; }
-        public IList<Match> matches { get; set; }
+        public Match[] matches { get; set; }
         public Lastmatch lastmatch { get; set; }
-        public IList<object> gamemodedata { get; set; }
-        public IList<object> mapdata { get; set; }
-        public IList<object> weapondata { get; set; }
+        public object[] gamemodedata { get; set; }
+        public object[] mapdata { get; set; }
+        public object[] weapondata { get; set; }
     }
 }

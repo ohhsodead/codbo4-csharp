@@ -1,4 +1,4 @@
-namespace CODBO4.Models
+namespace CODBO4.Models.Profile
 {
     public class User
     {

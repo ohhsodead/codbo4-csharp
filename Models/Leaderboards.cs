@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 namespace CODBO4.Models
 {
-    public class Leaderboard
+    public class Leaderboards
     {
         public class Level
         {
@@ -34,6 +32,6 @@ namespace CODBO4.Models
         public int rows { get; set; }
         public string platform { get; set; }
         public string scope { get; set; }
-        public IList<Entry> entries { get; set; }
+        public Entry[] entries { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace CODBO4.Models
+namespace CODBO4.Models
 {
-	public class User
+    public class User
     {
         public int uid { get; set; }
         public string username { get; set; }

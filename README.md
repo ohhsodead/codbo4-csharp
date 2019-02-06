@@ -1,5 +1,5 @@
-# An (under development) C# library for accessing the Call of Duty: Black Ops 4 API.
-*Not licensed by or associated with Activision or Call of Duty*
+# An (under development) C# library for accessing the Call of Duty API
+*Not licensed by or associated with Activision or Call of Duty.*
 
 ## Features
 * Full Black Ops 4 Support - blackout, mp, zombies
@@ -101,7 +101,7 @@ Console.WriteLine("Level: " + profile.user.stats.level);
         "title": "bo4"
     },
     "stats": {
-        "blackoutExtra": { /*BLACKOUT*/
+        "blackoutExtra": {
             "top5placementteam": 1,
             "top10placementteam": 2,
             "top15placementteam": 2,
@@ -132,7 +132,7 @@ Console.WriteLine("Level: " + profile.user.stats.level);
             "itemsdropped": 0,
             "killsrevenge": 0
         },
-        "multiplayerExtra": [], /*MULTIPLAYER*/
+        "multiplayerExtra": [],
         "level": 39,
         "maxlevel": 0,
         "prestige": 5,
@@ -245,8 +245,8 @@ foreach (var match in matches.entries)
             "matchStart": 1541764351,
             "matchEnd": 1541764971,
             "matchWon": 1,
-            "CTS": 780, /*COD-TRACKER-SCORE*/
-            "teams": { /*ONLY-MULTIPLAYER*/
+            "CTS": 780,
+            "teams": {
                 "winningTeam": 2,
                 "playerTeam": 2,
                 "playerPosition": 5,
@@ -257,7 +257,7 @@ foreach (var match in matches.entries)
             },
             "stats": {
                 "kills": 4,
-                "ekia": 3, /*ONLY-MULTIPLAYER*/
+                "ekia": 3,
                 "assists": 0,
                 "deaths": 2,
                 "highestKillStreak": 3, /*ONLY-MULTIPLAYER*/
@@ -512,7 +512,7 @@ foreach (var user in data.entries)
             "timeplayed": 278477
         },
         {
-            /*SAME-AS-ABOVE*/
+           ...
         }
     ]
 }

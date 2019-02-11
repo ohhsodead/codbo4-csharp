@@ -72,12 +72,12 @@ foreach (var user in users)
 ```
 
 ### Get Profile Stats
-__Tip:__ You can provide the *userId* for a much faster response, which can be found when validing the user.
+__Tip:__ While the *userId* parameter is not required, providing it will give you a much faster response. 
 
 #### Parameters
-* username *string* - User gamertag
+* username *string* - Name of the user
 * userId *long* - Id of the user (optional)
-* platform - PS4, Xbox One, Steam, Battle.net
+* platform - PS4, Xbox One, Steam or Battle.net
 * mode - Multiplayer or Blackout
 
 #### Code Example
@@ -206,8 +206,8 @@ Console.WriteLine("Level: " + profile.user.stats.level);
 
 ### Get User Matches
 #### Parameters
-* username *string* - User gamertag
-* platform - PS4, Xbox One, Steam, Battle.net
+* username *string* - Name of the user
+* platform - PS4, Xbox One, Steam or Battle.net
 * mode - Multiplayer or Blackout
 
 #### Code Example
@@ -269,9 +269,6 @@ foreach (var match in matches.entries)
             "formatForSite": "2018-11-09 13:02:51",
             "privateMatch": false
         },
-        {
-            /*SAME-AS-ABOVE*/
-        }
     ]
 }
 ```
@@ -467,7 +464,7 @@ foreach (var match in matches.entry)
 
 ### Get Leaderboard Data
 #### Parameters
-* platform - PS4, Xbox One, Steam, Battle.net
+* platform - PS4, Xbox One, Steam or Battle.net
 * scope - Kills, Deaths, Ekia, Wins, Losses, Games Played, Time Played
 * rows *integer* - Number of rows to fetch
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using CODBO4.Enums;
 using CODBO4.Models;
 using CODBO4.Models.Match;
@@ -21,10 +22,10 @@ namespace CODBO4
         /// <param name="username">Username of the user</param>
         /// <param name="platform">Platform the user is on</param>
         /// <returns>User data</returns>
-        public static Validate ValidateUser(string username, Platform platform)
+        public static async Task<Validate> ValidateUserAsync(string username, Platform platform)
         {
             var url = Uri.EscapeUriString($"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}");
-            return DownloadData<Validate>(url);
+            return await DownloadDataAsync<Validate>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -34,13 +35,13 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static object GetProfile(string username, Platform platform, Mode mode)
+        public static async Task<object> GetProfileAsync(string username, Platform platform, Mode mode)
         {
             var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}");
 
             return (mode == Mode.Multiplayer)
-                ? (object)DownloadData<Multiplayer>(url)
-                : DownloadData<Blackout>(url);
+                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                : await DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -51,13 +52,13 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static object GetProfile(string username, long userid, Platform platform, Mode mode)
+        public static async Task<object> GetProfileAsync(string username, long userid, Platform platform, Mode mode)
         {
             var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}?u={userid}");
 
             return mode == Mode.Multiplayer
-                ? (object)DownloadData<Multiplayer>(url)
-                : DownloadData<Blackout>(url);
+                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                : DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -67,13 +68,13 @@ namespace CODBO4
         /// <param name="platform"></param>
         /// <param name="mode"></param>
         /// <returns>Recent matches data</returns>
-        public static object GetUserMatches(string username, Platform platform, Mode mode)
+        public static async Task<object> GetUserMatchesAsync(string username, Platform platform, Mode mode)
         {
             var url = $"{Utilities.UserMatchesUrl}/{username}/{platform.GetDescription()}?type={mode}";
 
             return mode == Mode.Multiplayer
-                ? (object)DownloadData<Multiplayer>(url)
-                : DownloadData<Blackout>(url);
+                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                : await DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -81,10 +82,10 @@ namespace CODBO4
         /// </summary>
         /// <param name="rows">Number of rows to fetch</param>
         /// <returns>Recent matches data</returns>
-        public static RecentMatches GetRecentMatches(string rows)
+        public static async Task<RecentMatches> GetRecentMatchesAsync(string rows)
         {
             var url = $"{Utilities.RecentMatchesUrl}?rows={rows}";
-            return DownloadData<RecentMatches>(url);
+            return await DownloadDataAsync<RecentMatches>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -92,10 +93,10 @@ namespace CODBO4
         /// </summary>
         /// <param name="matchId">Id of the match to fetch</param>
         /// <returns>Match data</returns>
-        public static Matches GetMatch(string matchId)
+        public static async Task<Matches> GetMatchAsync(string matchId)
         {
             var url = $"{Utilities.MatchesUrl}?id={matchId}";
-            return DownloadData<Matches>(url);
+            return await DownloadDataAsync<Matches>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -105,10 +106,10 @@ namespace CODBO4
         /// <param name="scope">Type of scope to search for</param>
         /// <param name="rows">Number of rows to fetch (100 Max)</param>
         /// <returns>LeaderBoard data</returns>
-        public static Leaderboards GetLeaderBoard(Platform platform, Scope scope, int rows)
+        public static async Task<Leaderboards> GetLeaderBoardAsync(Platform platform, Scope scope, int rows)
         {
             var url = $"{Utilities.LeaderBoardsUrl}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}";
-            return DownloadData<Leaderboards>(url);
+            return await DownloadDataAsync<Leaderboards>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -116,28 +117,30 @@ namespace CODBO4
         /// </summary>
         /// <param name="userid">User id's to fetch (500 Max)</param>
         /// <returns>Username data</returns>
-        public static User GetUserById(IEnumerable<long> userid)
+        public static async Task<User> GetUserByIdAsync(IEnumerable<long> userid)
         {
             var userIds = userid.Aggregate("", (current, id) => current + $"?id={id}&");
             var url = $"{Utilities.UseridToUsernameUrl}?{userIds}";
-            return DownloadData<User>(url);
+            return await DownloadDataAsync<User>(url).ConfigureAwait(false);
         }
 
-        private static T DownloadData<T>(string url)
+        private static async Task<T> DownloadDataAsync<T>(string url)
         {
             using (var client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false))
             {
-                HttpResponseMessage response = client.GetAsync(url).Result;
-
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
 
-                var responseData = response.Content.ReadAsStringAsync().Result;
+                using (HttpContent content = response.Content)
+                {
+                    var responseData = await content.ReadAsStringAsync().ConfigureAwait(false);
 
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<T>(responseData);
+                    if (Utilities.IsValidResponse(responseData))
+                        return JsonConvert.DeserializeObject<T>(responseData);
 
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
+                    throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
+                }
             }
         }
     }

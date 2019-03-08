@@ -23,20 +23,8 @@ namespace CODBO4
         /// <returns>User data</returns>
         public static Validate ValidateUser(string username, Platform platform)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}")).Result;
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Validate>(responseData);
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            var url = Uri.EscapeUriString($"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}");
+            return DownloadData<Validate>(url);
         }
 
         /// <summary>
@@ -48,24 +36,11 @@ namespace CODBO4
         /// <returns>Profile data</returns>
         public static object GetProfile(string username, Platform platform, Mode mode)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}")).Result;
+            var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}");
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                {
-                    return mode == Mode.Multiplayer
-                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
-                        : JsonConvert.DeserializeObject<Blackout>(responseData);
-                }
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            return (mode == Mode.Multiplayer)
+                ? (object)DownloadData<Multiplayer>(url)
+                : DownloadData<Blackout>(url);
         }
 
         /// <summary>
@@ -78,24 +53,11 @@ namespace CODBO4
         /// <returns>Profile data</returns>
         public static object GetProfile(string username, long userid, Platform platform, Mode mode)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync(Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}?u={userid}")).Result;
+            var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}?u={userid}");
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                {
-                    return mode == Mode.Multiplayer
-                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
-                        : JsonConvert.DeserializeObject<Blackout>(responseData);
-                }
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            return mode == Mode.Multiplayer
+                ? (object)DownloadData<Multiplayer>(url)
+                : DownloadData<Blackout>(url);
         }
 
         /// <summary>
@@ -107,27 +69,11 @@ namespace CODBO4
         /// <returns>Recent matches data</returns>
         public static object GetUserMatches(string username, Platform platform, Mode mode)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.UserMatchesUrl}/{username}/{platform.GetDescription()}?type={mode}").Result;
+            var url = $"{Utilities.UserMatchesUrl}/{username}/{platform.GetDescription()}?type={mode}";
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<RecentMatches>(responseData);
-
-                if (Utilities.IsValidResponse(responseData))
-                {
-                    return mode == Mode.Multiplayer
-                        ? (object)JsonConvert.DeserializeObject<Multiplayer>(responseData)
-                        : JsonConvert.DeserializeObject<Blackout>(responseData);
-                }
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            return mode == Mode.Multiplayer
+                ? (object)DownloadData<Multiplayer>(url)
+                : DownloadData<Blackout>(url);
         }
 
         /// <summary>
@@ -137,20 +83,8 @@ namespace CODBO4
         /// <returns>Recent matches data</returns>
         public static RecentMatches GetRecentMatches(string rows)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.RecentMatchesUrl}?rows={rows}").Result;
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<RecentMatches>(responseData);
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            var url = $"{Utilities.RecentMatchesUrl}?rows={rows}";
+            return DownloadData<RecentMatches>(url);
         }
 
         /// <summary>
@@ -160,20 +94,8 @@ namespace CODBO4
         /// <returns>Match data</returns>
         public static Matches GetMatch(string matchId)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.MatchesUrl}?id={matchId}").Result;
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Matches>(responseData);
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            var url = $"{Utilities.MatchesUrl}?id={matchId}";
+            return DownloadData<Matches>(url);
         }
 
         /// <summary>
@@ -185,20 +107,8 @@ namespace CODBO4
         /// <returns>LeaderBoard data</returns>
         public static Leaderboards GetLeaderBoard(Platform platform, Scope scope, int rows)
         {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = client.GetAsync($"{Utilities.LeaderBoardsUrl}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}").Result;
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                    throw new Exception($"Bad response {response.StatusCode}");
-
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<Leaderboards>(responseData);
-
-                throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
-            }
+            var url = $"{Utilities.LeaderBoardsUrl}/{platform.GetDescription()}/{scope.GetDescription()}?rows={rows}";
+            return DownloadData<Leaderboards>(url);
         }
 
         /// <summary>
@@ -208,11 +118,16 @@ namespace CODBO4
         /// <returns>Username data</returns>
         public static User GetUserById(IEnumerable<long> userid)
         {
+            var userIds = userid.Aggregate("", (current, id) => current + $"?id={id}&");
+            var url = $"{Utilities.UseridToUsernameUrl}?{userIds}";
+            return DownloadData<User>(url);
+        }
+
+        private static T DownloadData<T>(string url)
+        {
             using (var client = new HttpClient())
             {
-                var userIds = userid.Aggregate("", (current, id) => current + $"?id={id}&");
-
-                HttpResponseMessage response = client.GetAsync($"{Utilities.UseridToUsernameUrl}?{userIds}").Result;
+                HttpResponseMessage response = client.GetAsync(url).Result;
 
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");
@@ -220,7 +135,7 @@ namespace CODBO4
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 if (Utilities.IsValidResponse(responseData))
-                    return JsonConvert.DeserializeObject<User>(responseData);
+                    return JsonConvert.DeserializeObject<T>(responseData);
 
                 throw new Exception(JsonConvert.DeserializeObject(responseData).ToString());
             }

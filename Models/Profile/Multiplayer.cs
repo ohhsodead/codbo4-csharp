@@ -2,20 +2,9 @@ namespace CODBO4.Models.Profile
 {
     public class Multiplayer
     {
-        public class User
+        public class User : Blackout.User
         {
-            public int id { get; set; }
-            public string username { get; set; }
-            public string platform { get; set; }
-            public string title { get; set; }
             public string avatar { get; set; }
-        }
-
-        public class Cache
-        {
-            public int time { get; set; }
-            public int expire { get; set; }
-            public int interval { get; set; }
         }
 
         public class Stats
@@ -56,48 +45,21 @@ namespace CODBO4.Models.Profile
             public string mapdata { get; set; }
         }
 
-        public class Match
+        public class Match : Common.Match
         {
-            public string identifier { get; set; }
-            public int kills { get; set; }
-            public int deaths { get; set; }
-            public int ekia { get; set; }
-            public int gamesplayed { get; set; }
-            public int wins { get; set; }
-            public int losses { get; set; }
             public int totalshots { get; set; }
             public int captures { get; set; }
             public int defends { get; set; }
             public int careerscore { get; set; }
             public int timeplayed { get; set; }
-            public int time { get; set; }
-            public string format { get; set; }
-        }
-
-        public class Lastmatch
-        {
-            public string identifier { get; set; }
-            public int kills { get; set; }
-            public int deaths { get; set; }
-            public int ekia { get; set; }
-            public int gamesplayed { get; set; }
-            public int wins { get; set; }
-            public int losses { get; set; }
-            public int totalshots { get; set; }
-            public int captures { get; set; }
-            public int defends { get; set; }
-            public int careerscore { get; set; }
-            public int timeplayed { get; set; }
-            public int time { get; set; }
-            public string format { get; set; }
         }
 
         public string identifier { get; set; }
         public User user { get; set; }
-        public Cache cache { get; set; }
+        public Common.Cache cache { get; set; }
         public Stats stats { get; set; }
         public Match[] matches { get; set; }
-        public Lastmatch lastmatch { get; set; }
+        public Match lastmatch { get; set; }
         public object[] gamemodedata { get; set; }
         public object[] mapdata { get; set; }
         public object[] weapondata { get; set; }

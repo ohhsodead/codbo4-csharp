@@ -8,10 +8,8 @@ namespace CODBO4.Models
             public string image { get; set; }
         }
 
-        public class Prestige
+        public class Prestige : Level
         {
-            public int id { get; set; }
-            public string image { get; set; }
         }
 
         public class Entry

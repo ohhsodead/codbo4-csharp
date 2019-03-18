@@ -2,80 +2,80 @@ namespace CODBO4.Models.Common
 {
     public class MatchInfo
     {
-        public int matchDuration { get; set; }
-        public string matchType { get; set; }
-        public string matchMapId { get; set; }
-        public string matchMode { get; set; }
+        public int MatchDuration { get; set; }
+        public string MatchType { get; set; }
+        public string MatchMapId { get; set; }
+        public string MatchMode { get; set; }
     }
 
     public class TeamScore
     {
-        public int team1 { get; set; }
-        public int team2 { get; set; }
+        public int Team1 { get; set; }
+        public int Team2 { get; set; }
     }
 
     public class Teams
     {
-        public TeamScore teamScore { get; set; }
-        public int winningTeam { get; set; }
+        public TeamScore TeamScore { get; set; }
+        public int WinningTeam { get; set; }
     }
 
     public class Stats
     {
-        public int kills { get; set; }
-        public int assists { get; set; }
-        public int deaths { get; set; }
-        public int headshots { get; set; }
-        public int shotsFired { get; set; }
-        public int shotsLanded { get; set; }
-        public int shotsMissed { get; set; }
+        public int Kills { get; set; }
+        public int Assists { get; set; }
+        public int Deaths { get; set; }
+        public int Headshots { get; set; }
+        public int ShotsFired { get; set; }
+        public int ShotsLanded { get; set; }
+        public int ShotsMissed { get; set; }
     }
 
     public class PlayerEntry : Stats
     {
-        public int uid { get; set; }
-        public int prestige { get; set; }
-        public int rank { get; set; }
-        public int team { get; set; }
-        public int position { get; set; }
-        public int ekia { get; set; }
-        public int highestKillStreak { get; set; }
+        public int Uid { get; set; }
+        public int Prestige { get; set; }
+        public int Rank { get; set; }
+        public int Team { get; set; }
+        public int Position { get; set; }
+        public int Ekia { get; set; }
+        public int HighestKillStreak { get; set; }
     }
 
     public class Entry
     {
-        public string mid { get; set; }
-        public int utcStart { get; set; }
-        public int utcEnd { get; set; }
-        public MatchInfo matchInfo { get; set; }
-        public Teams teams { get; set; }
-        public PlayerEntry[] playerEntries { get; set; }
+        public string Mid { get; set; }
+        public int UtcStart { get; set; }
+        public int UtcEnd { get; set; }
+        public MatchInfo MatchInfo { get; set; }
+        public Teams Teams { get; set; }
+        public PlayerEntry[] PlayerEntries { get; set; }
     }
 
     public class Cache
     {
-        public int time { get; set; }
-        public int expire { get; set; }
-        public int interval { get; set; }
+        public int Time { get; set; }
+        public int Expire { get; set; }
+        public int Interval { get; set; }
     }
 
     public abstract class Match
     {
-        public string identifier { get; set; }
-        public int kills { get; set; }
-        public int ekia { get; set; }
-        public int deaths { get; set; }
-        public int gamesplayed { get; set; }
-        public int wins { get; set; }
-        public int losses { get; set; }
-        public int time { get; set; }
-        public string format { get; set; }
+        public string Identifier { get; set; }
+        public int Kills { get; set; }
+        public int Ekia { get; set; }
+        public int Deaths { get; set; }
+        public int GamesPlayed { get; set; }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public int Time { get; set; }
+        public string Format { get; set; }
     }
 
     public abstract class Matches
     {
-        public bool success { get; set; }
-        public string game { get; set; }
-        public string platform { get; set; }
+        public bool Success { get; set; }
+        public string Game { get; set; }
+        public string Platform { get; set; }
     }
 }

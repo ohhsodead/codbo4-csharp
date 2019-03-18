@@ -2,9 +2,9 @@ namespace CODBO4.Models.Profile
 {
     public class User
     {
-        public int uid { get; set; }
-        public string username { get; set; }
-        public string platform { get; set; }
-        public string game { get; set; }
+        public int Uid { get; set; }
+        public string Username { get; set; }
+        public string Platform { get; set; }
+        public string Game { get; set; }
     }
 }

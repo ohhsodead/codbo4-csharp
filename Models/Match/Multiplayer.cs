@@ -4,22 +4,22 @@ namespace CODBO4.Models.Match
     {
         public class Teams : Common.Teams
         {
-            public int playerTeam { get; set; }
-            public int playerPosition { get; set; }
+            public int PlayerTeam { get; set; }
+            public int PlayerPosition { get; set; }
         }
 
         public class Stats : Common.Stats
         {
-            public int ekia { get; set; }
-            public int highestKillStreak { get; set; }
+            public int Ekia { get; set; }
+            public int HighestKillStreak { get; set; }
         }
 
         public new class Entry : Blackout.Entry
         {
-            public Teams teams { get; set; }
-            public new Stats stats { get; set; }
+            public Teams Teams { get; set; }
+            public new Stats Stats { get; set; }
         }
 
-        public new Entry[] entries { get; set; }
+        public new Entry[] Entries { get; set; }
     }
 }

@@ -4,8 +4,8 @@ namespace CODBO4.Models
     {
         public class Level
         {
-            public int id { get; set; }
-            public string image { get; set; }
+            public int Id { get; set; }
+            public string Image { get; set; }
         }
 
         public class Prestige : Level
@@ -14,22 +14,22 @@ namespace CODBO4.Models
 
         public class Entry
         {
-            public string username { get; set; }
-            public string platform { get; set; }
-            public Level level { get; set; }
-            public Prestige prestige { get; set; }
-            public int kills { get; set; }
-            public int deaths { get; set; }
-            public int ekia { get; set; }
-            public int wins { get; set; }
-            public int losses { get; set; }
-            public int gamesplayed { get; set; }
-            public int timeplayed { get; set; }
+            public string Username { get; set; }
+            public string Platform { get; set; }
+            public Level Level { get; set; }
+            public Prestige Prestige { get; set; }
+            public int Kills { get; set; }
+            public int Deaths { get; set; }
+            public int Ekia { get; set; }
+            public int Wins { get; set; }
+            public int Losses { get; set; }
+            public int GamesPlayed { get; set; }
+            public int TimePlayed { get; set; }
         }
 
-        public int rows { get; set; }
-        public string platform { get; set; }
-        public string scope { get; set; }
-        public Entry[] entries { get; set; }
+        public int Rows { get; set; }
+        public string Platform { get; set; }
+        public string Scope { get; set; }
+        public Entry[] Entries { get; set; }
     }
 }

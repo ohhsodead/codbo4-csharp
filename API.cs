@@ -24,7 +24,7 @@ namespace CODBO4
         /// <returns>User data</returns>
         public static async Task<Validate> ValidateUserAsync(string username, Platform platform)
         {
-            var url = Uri.EscapeUriString($"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}");
+            var url = $"{Utilities.ValidateUrl}/{username}/{platform.GetDescription()}";
             return await DownloadDataAsync<Validate>(url).ConfigureAwait(false);
         }
 
@@ -35,12 +35,12 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static async Task<object> GetProfileAsync(string username, Platform platform, Mode mode)
+        public static async Task<Multiplayer> GetProfileAsync(string username, Platform platform, Mode mode)
         {
-            var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}");
+            var url = $"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}";
 
             return (mode == Mode.Multiplayer)
-                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                ? await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
                 : await DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
@@ -52,13 +52,13 @@ namespace CODBO4
         /// <param name="platform">Platform the user is on</param>
         /// <param name="mode">Type of stats to fetch</param>
         /// <returns>Profile data</returns>
-        public static async Task<object> GetProfileAsync(string username, long userid, Platform platform, Mode mode)
+        public static async Task<Multiplayer> GetProfileAsync(string username, long userid, Platform platform, Mode mode)
         {
-            var url = Uri.EscapeUriString($"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}?u={userid}");
+            var url = $"{Utilities.StatsUrl}/{username}/{platform.GetDescription()}?type={mode}&u={userid}";
 
             return mode == Mode.Multiplayer
-                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
-                : DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
+                ? await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                : await DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace CODBO4
         /// <param name="platform"></param>
         /// <param name="mode"></param>
         /// <returns>Recent matches data</returns>
-        public static async Task<object> GetUserMatchesAsync(string username, Platform platform, Mode mode)
+        public static async Task<Multiplayer> GetUserMatchesAsync(string username, Platform platform, Mode mode)
         {
             var url = $"{Utilities.UserMatchesUrl}/{username}/{platform.GetDescription()}?type={mode}";
 
             return mode == Mode.Multiplayer
-                ? (object)await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
+                ? await DownloadDataAsync<Multiplayer>(url).ConfigureAwait(false)
                 : await DownloadDataAsync<Blackout>(url).ConfigureAwait(false);
         }
 
@@ -126,8 +126,9 @@ namespace CODBO4
 
         private static async Task<T> DownloadDataAsync<T>(string url)
         {
+            var uri = Uri.EscapeUriString(url);
             using (var client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false))
+            using (HttpResponseMessage response = await client.GetAsync(uri).ConfigureAwait(false))
             {
                 if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception($"Bad response {response.StatusCode}");

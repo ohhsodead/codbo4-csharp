@@ -1,42 +1,27 @@
 namespace CODBO4.Models.Match
 {
-    public class Blackout
+    public class Blackout : Profile.User
     {
-        public class Stats
-        {
-            public int kills { get; set; }
-            public int assists { get; set; }
-            public int deaths { get; set; }
-            public int headshots { get; set; }
-            public int shotsFired { get; set; }
-            public int shotsLanded { get; set; }
-            public int shotsMissed { get; set; }
-        }
-
         public class Entry
         {
-            public string identifier { get; set; }
-            public string gameMode { get; set; }
-            public object gameModeName { get; set; }
-            public string map { get; set; }
-            public string mapName { get; set; }
-            public string mapImage { get; set; }
-            public int matchStart { get; set; }
-            public int matchEnd { get; set; }
-            public int matchWon { get; set; }
-            public int CTS { get; set; }
-            public Stats stats { get; set; }
-            public string formatForSite { get; set; }
-            public bool privateMatch { get; set; }
+            public string Identifier { get; set; }
+            public string GameMode { get; set; }
+            public string GameModeName { get; set; }
+            public string Map { get; set; }
+            public string MapName { get; set; }
+            public string MapImage { get; set; }
+            public int MatchStart { get; set; }
+            public int MatchEnd { get; set; }
+            public int MatchWon { get; set; }
+            public int Cts { get; set; }
+            public Common.Stats Stats { get; set; }
+            public string FormatForSite { get; set; }
+            public bool PrivateMatch { get; set; }
         }
 
-        public bool success { get; set; }
-        public int uid { get; set; }
-        public string username { get; set; }
-        public string platform { get; set; }
-        public string game { get; set; }
-        public string type { get; set; }
-        public int matchesCount { get; set; }
-        public Entry[] entries { get; set; }
+        public bool Success { get; set; }
+        public string Type { get; set; }
+        public int MatchesCount { get; set; }
+        public Entry[] Entries { get; set; }
     }
 }
